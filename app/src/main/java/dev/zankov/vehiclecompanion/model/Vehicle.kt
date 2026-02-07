@@ -1,0 +1,18 @@
+package dev.zankov.vehiclecompanion.model
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import dev.zankov.vehiclecompanion.data.local.VEHICLES_DATABASE_TABLE
+import kotlinx.serialization.Serializable
+
+@Serializable
+@Entity(tableName = VEHICLES_DATABASE_TABLE)
+data class Vehicle(
+    @PrimaryKey(autoGenerate = false)
+    val id: Int,
+    var name: String,
+    var make: String,
+    var model: String,
+    var vin: Int,
+    var fuelType: String
+)

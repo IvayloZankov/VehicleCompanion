@@ -13,17 +13,15 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteDefaul
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.zankov.vehiclecompanion.navigation.AppDestinations
-import dev.zankov.vehiclecompanion.ui.garage.GarageFragment
-import dev.zankov.vehiclecompanion.ui.places.PlacesFragment
+import dev.zankov.vehiclecompanion.navigation.AppNavigation
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 
 @AndroidEntryPoint
@@ -42,7 +40,9 @@ class MainActivity : ComponentActivity() {
 @PreviewScreenSizes
 @Composable
 fun VehicleCompanionApp() {
-    var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.GARAGE) }
+    val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
@@ -55,8 +55,17 @@ fun VehicleCompanionApp() {
                         )
                     },
                     label = { Text(it.label) },
-                    selected = it == currentDestination,
-                    onClick = { currentDestination = it }
+                    selected = currentRoute == it.route,
+                    onClick = {
+                        navController.navigate(it.route) {
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
                 )
             }
         },
@@ -66,11 +75,10 @@ fun VehicleCompanionApp() {
         )
     ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            val modifier = Modifier.padding(innerPadding)
-            when (currentDestination) {
-                AppDestinations.GARAGE -> GarageFragment(modifier = modifier)
-                AppDestinations.PLACES -> PlacesFragment(modifier = modifier)
-            }
+            AppNavigation(
+                navController = navController,
+                modifier = Modifier.padding(innerPadding)
+            )
         }
     }
 }

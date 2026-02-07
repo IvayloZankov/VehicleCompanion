@@ -1,11 +1,20 @@
 package dev.zankov.vehiclecompanion.navigation
 
 import dev.zankov.vehiclecompanion.R
+import dev.zankov.vehiclecompanion.navigation.AppRoutes.ROUTE_GARAGE
+import dev.zankov.vehiclecompanion.navigation.AppRoutes.ROUTE_PLACES
+
+object AppRoutes {
+    const val ROUTE_GARAGE = "garage_route"
+    const val ROUTE_PLACES = "places_route"
+    const val ROUTE_UPDATE_VEHICLE = "update_vehicle_route"
+}
 
 enum class AppDestinations(
+    val route: String,
     val label: String,
     val iconResource: Int,
 ) {
-    GARAGE("Garage", R.drawable.ic_garage),
-    PLACES("Places", R.drawable.ic_explore)
+    GARAGE(ROUTE_GARAGE, "Garage", R.drawable.ic_garage),
+    PLACES(ROUTE_PLACES, "Places", R.drawable.ic_explore)
 }
