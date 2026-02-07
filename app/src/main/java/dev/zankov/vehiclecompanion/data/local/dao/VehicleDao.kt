@@ -1,6 +1,7 @@
 package dev.zankov.vehiclecompanion.data.local.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
@@ -14,11 +15,14 @@ interface VehicleDao {
     fun selectAllVehicles(): Flow<List<Vehicle>>
 
     @Insert(onConflict = REPLACE)
-    suspend fun addVehicle(vehicle: List<Vehicle>)
+    fun addVehicles(vehicle: List<Vehicle>)
 
     @Insert(onConflict = REPLACE)
-    suspend fun updateVehicle(vehicle: Vehicle)
+    suspend fun insertVehicle(vehicle: Vehicle)
+
+    @Delete
+    suspend fun deleteVehicle(vehicle: Vehicle)
 
     @Query("DELETE FROM vehicles_table")
-    suspend fun deleteAllVehicles()
+    fun deleteAllVehicles()
 }

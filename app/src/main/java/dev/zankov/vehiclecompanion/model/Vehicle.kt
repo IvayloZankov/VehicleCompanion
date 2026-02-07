@@ -8,8 +8,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Entity(tableName = VEHICLES_DATABASE_TABLE)
 data class Vehicle(
-    @PrimaryKey(autoGenerate = false)
-    val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     var name: String,
     var make: String,
     var model: String,

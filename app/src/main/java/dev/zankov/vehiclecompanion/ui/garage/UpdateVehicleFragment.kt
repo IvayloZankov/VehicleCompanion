@@ -21,41 +21,74 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.zankov.vehiclecompanion.R
+import dev.zankov.vehiclecompanion.model.Vehicle
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 
 @Composable
 fun UpdateVehicleFragment(
-    viewModel: GarageViewModel = hiltViewModel(),
+    viewModel: UpdateVehicleViewModel = hiltViewModel(),
     onCloseClick: () -> Unit,
     onSaveClick: () -> Unit
 
 ) {
     var name by rememberSaveable { mutableStateOf("") }
+    var isNameError by rememberSaveable { mutableStateOf(false) }
     var make by rememberSaveable { mutableStateOf("") }
+    var isMakeError by rememberSaveable { mutableStateOf(false) }
     var model by rememberSaveable { mutableStateOf("") }
+    var isModelError by rememberSaveable { mutableStateOf(false) }
     var vin by rememberSaveable { mutableStateOf("") }
     var fuelType by rememberSaveable { mutableStateOf("") }
 
+    fun validate(): Boolean {
+        isNameError = name.isBlank()
+        isMakeError = make.isBlank()
+        isModelError = model.isBlank()
+        return !isNameError && !isMakeError && !isModelError
+    }
+
     UpdateVehicleScreen(
         name = name,
-        onNameChange = { name = it },
+        onNameChange = {
+            name = it
+            isNameError = false
+        },
+        isNameError = isNameError,
         make = make,
-        onMakeChange = { make = it },
+        onMakeChange = {
+            make = it
+            isMakeError = false
+        },
+        isMakeError = isMakeError,
         model = model,
-        onModelChange = { model = it },
+        onModelChange = {
+            model = it
+            isModelError = false
+        },
+        isModelError = isModelError,
         vin = vin,
         onVinChange = { vin = it },
         fuelType = fuelType,
         onFuelTypeChange = { fuelType = it },
         onCloseClick = onCloseClick,
-        onSaveClick = onSaveClick
+        onSaveClick = {
+            if (validate()) {
+                val vehicle = Vehicle(
+                    name = name,
+                    make = make,
+                    model = model,
+                    vin = vin.toIntOrNull() ?: 0,
+                    fuelType = fuelType
+                )
+                viewModel.saveVehicle(vehicle)
+                onSaveClick()
+            }
+        }
     )
 }
 
@@ -64,10 +97,13 @@ fun UpdateVehicleFragment(
 fun UpdateVehicleScreen(
     name: String,
     onNameChange: (String) -> Unit,
+    isNameError: Boolean,
     make: String,
     onMakeChange: (String) -> Unit,
+    isMakeError: Boolean,
     model: String,
     onModelChange: (String) -> Unit,
+    isModelError: Boolean,
     vin: String,
     onVinChange: (String) -> Unit,
     fuelType: String,
@@ -92,32 +128,35 @@ fun UpdateVehicleScreen(
                     IconButton(onClick = onCloseClick) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_close_24),
-                            contentDescription = "Close")
+                            contentDescription = "Close"
+                        )
                     }
                 }
                 OutlinedTextField(
                     value = name,
                     onValueChange = onNameChange,
                     label = { Text("Name") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = isNameError,
                 )
                 OutlinedTextField(
                     value = make,
                     onValueChange = onMakeChange,
                     label = { Text("Make") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = isMakeError,
                 )
                 OutlinedTextField(
                     value = model,
                     onValueChange = onModelChange,
                     label = { Text("Model") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = isModelError,
                 )
                 OutlinedTextField(
                     value = vin,
                     onValueChange = onVinChange,
                     label = { Text("VIN") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
@@ -146,10 +185,13 @@ fun UpdateVehicleScreenPreview() {
         UpdateVehicleScreen(
             name = "My Awesome Car",
             onNameChange = {},
+            isNameError = false,
             make = "Toyota",
             onMakeChange = {},
+            isMakeError = false,
             model = "GR Yaris",
             onModelChange = {},
+            isModelError = false,
             vin = "1234567890",
             onVinChange = {},
             fuelType = "Gasoline",

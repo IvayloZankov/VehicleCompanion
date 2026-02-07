@@ -4,15 +4,12 @@ import dev.zankov.vehiclecompanion.data.local.VehicleRepository
 import dev.zankov.vehiclecompanion.model.Vehicle
 import javax.inject.Inject
 
-class FetchVehiclesUseCase @Inject constructor(
+class SaveVehicleUseCase @Inject constructor(
     private val repository: VehicleRepository
 ) {
     suspend operator fun invoke(
-        onSuccess: (List<Vehicle>) -> Unit,
-        onFailure: (Throwable) -> Unit
+        vehicle: Vehicle
     ) {
-        repository.getVehiclesStream().collect { listVehicles: List<Vehicle> ->
-                onSuccess(listVehicles)
-        }
+        repository.insertVehicle(vehicle)
     }
 }

@@ -8,25 +8,27 @@ import dev.zankov.vehiclecompanion.model.Vehicle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class GarageViewModel @Inject constructor(
-    fetchVehiclesUseCase: FetchVehiclesUseCase
+    private val fetchVehiclesUseCase: FetchVehiclesUseCase
 ) : ViewModel() {
 
     private val _stateFlowVehicles = MutableStateFlow(emptyList<Vehicle>())
     val stateFlowVehicles = _stateFlowVehicles.asStateFlow()
 
     init {
-        fetchVehiclesUseCase(
-            viewModelScope,
-            onSuccess = {
-                _stateFlowVehicles.update { it }
-            },
-            onFailure = {
-                //TODO Log some error
-            }
-        )
+        viewModelScope.launch {
+            fetchVehiclesUseCase(
+                onSuccess = { newList ->
+                    _stateFlowVehicles.update { newList }
+                },
+                onFailure = {
+                    //TODO Log some error
+                }
+            )
+        }
     }
 }

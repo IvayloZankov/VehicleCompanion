@@ -3,11 +3,17 @@ package dev.zankov.vehiclecompanion.ui.garage
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -44,43 +50,87 @@ fun GarageScreen(
     stateVehicles: List<Vehicle>,
     onAddVehicleClick: () -> Unit
 ) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        if (stateVehicles.isEmpty()) {
-            Button(
-                onClick = onAddVehicleClick,
-                modifier = Modifier
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(
-                        vertical = 16.dp,
-                        horizontal = 32.dp
-                    )
-
+    Scaffold(
+        modifier = modifier,
+        floatingActionButton = {
+            FloatingActionButton(onClick = onAddVehicleClick) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_add_vehicle),
+                    contentDescription = "Add new vehicle"
+                )
+            }
+        }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (stateVehicles.isEmpty()) {
+                Button(
+                    onClick = onAddVehicleClick,
+                    modifier = Modifier
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_add_vehicle),
-                        contentDescription = "Add new vehicle",
-                        modifier = Modifier.size(72.dp)
-                    )
-                    Text(
-                        text = "Add new vehicle",
-                        style = MaterialTheme.typography.headlineSmall,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(top = 16.dp)
-                    )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.padding(
+                            vertical = 16.dp,
+                            horizontal = 32.dp
+                        )
+
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_add_vehicle),
+                            contentDescription = "Add new vehicle",
+                            modifier = Modifier.size(72.dp)
+                        )
+                        Text(
+                            text = "Add new vehicle",
+                            style = MaterialTheme.typography.headlineSmall,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(top = 16.dp)
+                        )
+                    }
+                }
+
+
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(stateVehicles) { vehicle ->
+                        VehicleCard(vehicle = vehicle)
+                    }
                 }
             }
+        }
+    }
+}
 
-
-        } else {
+@Composable
+fun VehicleCard(vehicle: Vehicle) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
             Text(
-                text = "Garage Screen. \nVehicles: ${stateVehicles.size}",
-                style = MaterialTheme.typography.headlineLarge,
-                textAlign = TextAlign.Center
+                text = vehicle.name,
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Text(
+                text = "${vehicle.make} ${vehicle.model}",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+            Text(
+                text = vehicle.fuelType,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(top = 4.dp)
             )
         }
     }
@@ -102,7 +152,6 @@ fun GaragePreviewEmpty() {
 fun GaragePreview() {
     val sampleVehicles = listOf(
         Vehicle(
-            id = 1,
             name = "My Car",
             make = "Toyota",
             model = "Camry",
@@ -110,7 +159,6 @@ fun GaragePreview() {
             fuelType = "Gasoline"
         ),
         Vehicle(
-            id = 2,
             name = "Work Van",
             make = "Ford",
             model = "Transit",
@@ -124,5 +172,20 @@ fun GaragePreview() {
             stateVehicles = sampleVehicles,
             onAddVehicleClick = {}
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun VehicleCardPreview() {
+    val sampleVehicle = Vehicle(
+        name = "My Car",
+        make = "Toyota",
+        model = "Camry",
+        vin = 123456789,
+        fuelType = "Gasoline"
+    )
+    VehicleCompanionTheme {
+        VehicleCard(vehicle = sampleVehicle)
     }
 }

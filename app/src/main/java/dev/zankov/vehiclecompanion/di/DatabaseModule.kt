@@ -23,5 +23,5 @@ object DatabaseModule {
         context,
         VehicleDatabase::class.java,
         name = DATABASE_NAME
-    ).build()
+    ).fallbackToDestructiveMigration(false).build()
 }
