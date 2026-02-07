@@ -14,6 +14,9 @@ interface VehicleDao {
     @Query("SELECT * FROM vehicles_table ORDER BY id ASC")
     fun selectAllVehicles(): Flow<List<Vehicle>>
 
+    @Query("SELECT * FROM vehicles_table WHERE id = :id")
+    fun getVehicleById(id: Int): Flow<Vehicle?>
+
     @Insert(onConflict = REPLACE)
     fun addVehicles(vehicle: List<Vehicle>)
 

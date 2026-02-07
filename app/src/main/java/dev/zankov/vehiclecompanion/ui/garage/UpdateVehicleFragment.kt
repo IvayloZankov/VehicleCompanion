@@ -15,6 +15,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -36,6 +38,8 @@ fun UpdateVehicleFragment(
     onSaveClick: () -> Unit
 
 ) {
+    val selectedVehicle by viewModel.stateFlowSelectedVehicle.collectAsState()
+
     var name by rememberSaveable { mutableStateOf("") }
     var isNameError by rememberSaveable { mutableStateOf(false) }
     var make by rememberSaveable { mutableStateOf("") }
@@ -45,6 +49,14 @@ fun UpdateVehicleFragment(
     var vin by rememberSaveable { mutableStateOf("") }
     var fuelType by rememberSaveable { mutableStateOf("") }
 
+    LaunchedEffect(selectedVehicle) {
+        name = selectedVehicle.name
+        make = selectedVehicle.make
+        model = selectedVehicle.model
+        vin = selectedVehicle.vin
+        fuelType = selectedVehicle.fuelType
+    }
+
     fun validate(): Boolean {
         isNameError = name.isBlank()
         isMakeError = make.isBlank()
@@ -53,6 +65,7 @@ fun UpdateVehicleFragment(
     }
 
     UpdateVehicleScreen(
+        selectedVehicle,
         name = name,
         onNameChange = {
             name = it
@@ -78,11 +91,11 @@ fun UpdateVehicleFragment(
         onCloseClick = onCloseClick,
         onSaveClick = {
             if (validate()) {
-                val vehicle = Vehicle(
+                val vehicle = selectedVehicle.copy(
                     name = name,
                     make = make,
                     model = model,
-                    vin = vin.toIntOrNull() ?: 0,
+                    vin = vin,
                     fuelType = fuelType
                 )
                 viewModel.saveVehicle(vehicle)
@@ -95,6 +108,7 @@ fun UpdateVehicleFragment(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpdateVehicleScreen(
+    vehicle: Vehicle,
     name: String,
     onNameChange: (String) -> Unit,
     isNameError: Boolean,
@@ -183,6 +197,7 @@ fun UpdateVehicleScreen(
 fun UpdateVehicleScreenPreview() {
     VehicleCompanionTheme {
         UpdateVehicleScreen(
+            vehicle = Vehicle(),
             name = "My Awesome Car",
             onNameChange = {},
             isNameError = false,

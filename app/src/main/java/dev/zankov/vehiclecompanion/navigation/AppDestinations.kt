@@ -7,7 +7,11 @@ import dev.zankov.vehiclecompanion.navigation.AppRoutes.ROUTE_PLACES
 object AppRoutes {
     const val ROUTE_GARAGE = "garage_route"
     const val ROUTE_PLACES = "places_route"
-    const val ROUTE_UPDATE_VEHICLE = "update_vehicle_route"
+
+    const val ARG_VEHICLE_ID = "vehicleId"
+    const val ROUTE_UPDATE_VEHICLE = "update_vehicle_route/{$ARG_VEHICLE_ID}"
+
+    fun updateVehicleRoute(vehicleId: Int) = "update_vehicle_route/$vehicleId"
 }
 
 enum class AppDestinations(

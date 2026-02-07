@@ -10,9 +10,9 @@ import kotlinx.serialization.Serializable
 data class Vehicle(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    var name: String,
-    var make: String,
-    var model: String,
-    var vin: Int,
-    var fuelType: String
+    var name: String = "",
+    var make: String = "",
+    var model: String = "",
+    var vin: String = "",
+    var fuelType: String = ""
 )

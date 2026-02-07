@@ -1,5 +1,6 @@
 package dev.zankov.vehiclecompanion.ui.garage
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,14 +34,16 @@ import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 fun GarageFragment(
     modifier: Modifier = Modifier,
     viewModel: GarageViewModel = hiltViewModel(),
-    onAddVehicleClick: () -> Unit
+    onAddVehicleClick: () -> Unit,
+    onEditVehicleClick: (id: Int) -> Unit
 ) {
     val stateVehicles by viewModel.stateFlowVehicles.collectAsState(initial = emptyList())
 
     GarageScreen(
         modifier = modifier,
         stateVehicles = stateVehicles,
-        onAddVehicleClick = onAddVehicleClick
+        onAddVehicleClick = onAddVehicleClick,
+        onEditVehicleClick = onEditVehicleClick
     )
 }
 
@@ -48,7 +51,8 @@ fun GarageFragment(
 fun GarageScreen(
     modifier: Modifier = Modifier,
     stateVehicles: List<Vehicle>,
-    onAddVehicleClick: () -> Unit
+    onAddVehicleClick: () -> Unit,
+    onEditVehicleClick: (id: Int) -> Unit
 ) {
     Scaffold(
         modifier = modifier,
@@ -100,7 +104,10 @@ fun GarageScreen(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     items(stateVehicles) { vehicle ->
-                        VehicleCard(vehicle = vehicle)
+                        VehicleCard(
+                            vehicle = vehicle,
+                            onClick = { onEditVehicleClick(vehicle.id) }
+                        )
                     }
                 }
             }
@@ -109,11 +116,15 @@ fun GarageScreen(
 }
 
 @Composable
-fun VehicleCard(vehicle: Vehicle) {
+fun VehicleCard(
+    vehicle: Vehicle,
+    onClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
+            .clickable(onClick = onClick)
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -142,7 +153,8 @@ fun GaragePreviewEmpty() {
     VehicleCompanionTheme {
         GarageScreen(
             stateVehicles = emptyList(),
-            onAddVehicleClick = {}
+            onAddVehicleClick = {},
+            onEditVehicleClick = {}
         )
     }
 }
@@ -155,14 +167,14 @@ fun GaragePreview() {
             name = "My Car",
             make = "Toyota",
             model = "Camry",
-            vin = 123456789,
+            vin = "3VWDK7AJ6GM109876",
             fuelType = "Gasoline"
         ),
         Vehicle(
             name = "Work Van",
             make = "Ford",
             model = "Transit",
-            vin = 987654321,
+            vin = "JTDJN31A8L0012345",
             fuelType = "Diesel"
         )
     )
@@ -170,7 +182,8 @@ fun GaragePreview() {
     VehicleCompanionTheme {
         GarageScreen(
             stateVehicles = sampleVehicles,
-            onAddVehicleClick = {}
+            onAddVehicleClick = {},
+            onEditVehicleClick = {}
         )
     }
 }
@@ -182,10 +195,13 @@ fun VehicleCardPreview() {
         name = "My Car",
         make = "Toyota",
         model = "Camry",
-        vin = 123456789,
+        vin = "2G4GP5EXXE9191433",
         fuelType = "Gasoline"
     )
     VehicleCompanionTheme {
-        VehicleCard(vehicle = sampleVehicle)
+        VehicleCard(
+            vehicle = sampleVehicle,
+            onClick = {}
+        )
     }
 }

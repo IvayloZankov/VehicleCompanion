@@ -15,6 +15,10 @@ class VehicleRepositoryImpl @Inject constructor(
         return vehicleDatabase.vehicleDao().selectAllVehicles().flowOn(Dispatchers.IO)
     }
 
+    override fun getVehicleStream(id: Int): Flow<Vehicle?> {
+        return vehicleDatabase.vehicleDao().getVehicleById(id).flowOn(Dispatchers.IO)
+    }
+
     override suspend fun insertVehicle(vehicle: Vehicle) {
         withContext(Dispatchers.IO) {
             vehicleDatabase.vehicleDao().insertVehicle(vehicle)
