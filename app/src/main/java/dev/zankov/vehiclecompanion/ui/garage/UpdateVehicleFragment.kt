@@ -3,14 +3,18 @@ package dev.zankov.vehiclecompanion.ui.garage
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -35,8 +39,8 @@ import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 fun UpdateVehicleFragment(
     viewModel: UpdateVehicleViewModel = hiltViewModel(),
     onCloseClick: () -> Unit,
-    onSaveClick: () -> Unit
-
+    onSaveClick: () -> Unit,
+    onDeleteClick: () -> Unit
 ) {
     val selectedVehicle by viewModel.stateFlowSelectedVehicle.collectAsState()
 
@@ -65,7 +69,7 @@ fun UpdateVehicleFragment(
     }
 
     UpdateVehicleScreen(
-        selectedVehicle,
+        vehicle = selectedVehicle,
         name = name,
         onNameChange = {
             name = it
@@ -101,6 +105,10 @@ fun UpdateVehicleFragment(
                 viewModel.saveVehicle(vehicle)
                 onSaveClick()
             }
+        },
+        onDeleteClick = {
+            viewModel.deleteVehicle(selectedVehicle)
+            onDeleteClick()
         }
     )
 }
@@ -123,23 +131,31 @@ fun UpdateVehicleScreen(
     fuelType: String,
     onFuelTypeChange: (String) -> Unit,
     onCloseClick: () -> Unit,
-    onSaveClick: () -> Unit
+    onSaveClick: () -> Unit,
+    onDeleteClick: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier.padding(16.dp),
     ) { padding ->
-        Box(modifier = Modifier.fillMaxSize().padding(padding)) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(padding)) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         "Add Vehicle",
                         Modifier.padding(horizontal = 16.dp)
                     )
-                    IconButton(onClick = onCloseClick) {
+                    Button(
+                        onClick = onCloseClick,
+                        modifier = Modifier.size(40.dp),   // 1. Set a fixed size
+                        shape = CircleShape,               // 2. Make it circular
+                        contentPadding = PaddingValues(0.dp) // 3. Remove default padding
+                    ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_close_24),
                             contentDescription = "Close"
@@ -180,13 +196,31 @@ fun UpdateVehicleScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            Button(
-                onClick = onSaveClick,
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter)
             ) {
-                Text("Save")
+                Button(
+                    onClick = onSaveClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Text("Save")
+                }
+                if (vehicle.id != 0) {
+                    Button(
+                        onClick = onDeleteClick,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.error,
+                            contentColor = MaterialTheme.colorScheme.onError
+                        )
+                    ) {
+                        Text("Delete")
+                    }
+                }
             }
         }
     }
@@ -197,7 +231,7 @@ fun UpdateVehicleScreen(
 fun UpdateVehicleScreenPreview() {
     VehicleCompanionTheme {
         UpdateVehicleScreen(
-            vehicle = Vehicle(),
+            vehicle = Vehicle(id = 1),
             name = "My Awesome Car",
             onNameChange = {},
             isNameError = false,
@@ -212,7 +246,8 @@ fun UpdateVehicleScreenPreview() {
             fuelType = "Gasoline",
             onFuelTypeChange = {},
             onCloseClick = {},
-            onSaveClick = {}
+            onSaveClick = {},
+            onDeleteClick = {}
         )
     }
 }

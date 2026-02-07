@@ -39,7 +39,8 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         ) {
             UpdateVehicleFragment(
                 onCloseClick = { navController.popBackStack() },
-                onSaveClick = { navController.popBackStack() }
+                onSaveClick = { navController.popBackStack() },
+                onDeleteClick = { navController.popBackStack() }
             )
         }
         composable(AppRoutes.ROUTE_PLACES) {
