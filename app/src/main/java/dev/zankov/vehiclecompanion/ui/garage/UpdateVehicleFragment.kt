@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,7 +20,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -44,22 +45,15 @@ fun UpdateVehicleFragment(
 ) {
     val selectedVehicle by viewModel.stateFlowSelectedVehicle.collectAsState()
 
-    var name by rememberSaveable { mutableStateOf("") }
-    var isNameError by rememberSaveable { mutableStateOf(false) }
-    var make by rememberSaveable { mutableStateOf("") }
-    var isMakeError by rememberSaveable { mutableStateOf(false) }
-    var model by rememberSaveable { mutableStateOf("") }
-    var isModelError by rememberSaveable { mutableStateOf(false) }
-    var vin by rememberSaveable { mutableStateOf("") }
-    var fuelType by rememberSaveable { mutableStateOf("") }
+    var name by rememberSaveable(selectedVehicle.id) { mutableStateOf(selectedVehicle.name) }
+    var make by rememberSaveable(selectedVehicle.id) { mutableStateOf(selectedVehicle.make) }
+    var model by rememberSaveable(selectedVehicle.id) { mutableStateOf(selectedVehicle.model) }
+    var vin by rememberSaveable(selectedVehicle.id) { mutableStateOf(selectedVehicle.vin) }
+    var fuelType by rememberSaveable(selectedVehicle.id) { mutableStateOf(selectedVehicle.fuelType) }
 
-    LaunchedEffect(selectedVehicle) {
-        name = selectedVehicle.name
-        make = selectedVehicle.make
-        model = selectedVehicle.model
-        vin = selectedVehicle.vin
-        fuelType = selectedVehicle.fuelType
-    }
+    var isNameError by rememberSaveable { mutableStateOf(false) }
+    var isMakeError by rememberSaveable { mutableStateOf(false) }
+    var isModelError by rememberSaveable { mutableStateOf(false) }
 
     fun validate(): Boolean {
         isNameError = name.isBlank()
@@ -142,7 +136,9 @@ fun UpdateVehicleScreen(
             .padding(padding)) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
@@ -166,34 +162,44 @@ fun UpdateVehicleScreen(
                     value = name,
                     onValueChange = onNameChange,
                     label = { Text("Name") },
+                    singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     isError = isNameError,
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next)
                 )
                 OutlinedTextField(
                     value = make,
                     onValueChange = onMakeChange,
                     label = { Text("Make") },
+                    singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     isError = isMakeError,
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next)
                 )
                 OutlinedTextField(
                     value = model,
                     onValueChange = onModelChange,
                     label = { Text("Model") },
+                    singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     isError = isModelError,
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next)
                 )
                 OutlinedTextField(
                     value = vin,
                     onValueChange = onVinChange,
+                    singleLine = true,
                     label = { Text("VIN") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next)
                 )
                 OutlinedTextField(
                     value = fuelType,
                     onValueChange = onFuelTypeChange,
                     label = { Text("Fuel Type") },
-                    modifier = Modifier.fillMaxWidth()
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
                 )
             }
             Column(
