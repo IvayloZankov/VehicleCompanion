@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import dev.zankov.vehiclecompanion.ui.garage.GarageFragment
 import dev.zankov.vehiclecompanion.ui.garage.UpdateVehicleFragment
+import dev.zankov.vehiclecompanion.ui.places.PlacesDetailsFragment
 import dev.zankov.vehiclecompanion.ui.places.PlacesFragment
 
 @Composable
@@ -44,7 +45,21 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             )
         }
         composable(AppRoutes.ROUTE_PLACES) {
-            PlacesFragment()
+            PlacesFragment(
+                onPoiClick = { poiId ->
+                    navController.navigate(AppRoutes.placeDetailsRoute(poiId))
+                }
+            )
+        }
+        composable(
+            route = AppRoutes.ROUTE_PLACE_DETAILS,
+            arguments = listOf(
+                navArgument(AppRoutes.ARG_POI_ID) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            PlacesDetailsFragment()
         }
     }
 }

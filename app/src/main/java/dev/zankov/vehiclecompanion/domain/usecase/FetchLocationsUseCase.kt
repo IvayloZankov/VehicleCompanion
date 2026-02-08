@@ -1,11 +1,11 @@
 package dev.zankov.vehiclecompanion.domain.usecase
 
-import dev.zankov.vehiclecompanion.data.network.LocationsApi
+import dev.zankov.vehiclecompanion.data.local.LocationsRepository
 import dev.zankov.vehiclecompanion.model.Poi
 import javax.inject.Inject
 
 class FetchLocationsUseCase @Inject constructor(
-    private val locationsApi: LocationsApi
+    private val locationsRepository: LocationsRepository
 ) {
     suspend operator fun invoke(
         southWestCorner: String,
@@ -14,17 +14,13 @@ class FetchLocationsUseCase @Inject constructor(
         onSuccess: (List<Poi>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        val pointsOfInterest = locationsApi.discoverPointsOfInterest(
+        val pointsOfInterest = locationsRepository.getPointsOfInterest(
             southWestCorner,
             northEastCorner,
             pageSize
         )
-        if (pointsOfInterest.isSuccessful) {
-            pointsOfInterest.body()?.let { locationsModel ->
-                onSuccess(locationsModel.pois)
-            }
-        } else {
-            onFailure(Exception("Failed to fetch points of interest"))
-        }
+        pointsOfInterest
+            .onSuccess { pois -> onSuccess(pois) }
+            .onFailure { exception -> onFailure(exception) }
     }
 }

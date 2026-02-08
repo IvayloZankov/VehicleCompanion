@@ -11,8 +11,8 @@ class FetchVehiclesUseCase @Inject constructor(
         onSuccess: (List<Vehicle>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        repository.getVehiclesStream().collect { listVehicles: List<Vehicle> ->
-                onSuccess(listVehicles)
+        repository.getVehiclesStream().collect {
+            onSuccess(it)
         }
     }
 }

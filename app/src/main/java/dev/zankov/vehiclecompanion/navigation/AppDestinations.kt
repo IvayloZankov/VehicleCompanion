@@ -10,8 +10,11 @@ object AppRoutes {
 
     const val ARG_VEHICLE_ID = "vehicleId"
     const val ROUTE_UPDATE_VEHICLE = "update_vehicle_route/{$ARG_VEHICLE_ID}"
-
     fun updateVehicleRoute(vehicleId: Int) = "update_vehicle_route/$vehicleId"
+
+    const val ARG_POI_ID = "poiId"
+    const val ROUTE_PLACE_DETAILS = "place_details_route/{$ARG_POI_ID}"
+    fun placeDetailsRoute(poiId: Int) = "place_details_route/$poiId"
 }
 
 enum class AppDestinations(

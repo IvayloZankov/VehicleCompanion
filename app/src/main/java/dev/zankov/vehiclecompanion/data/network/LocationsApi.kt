@@ -16,7 +16,7 @@ interface LocationsApi {
      * @return A [Response] containing a [LocationsModel] object.
      */
     @GET("pois/discover")
-    suspend fun discoverPointsOfInterest(
+    suspend fun getPointsOfInterest(
         @Query("sw_corner") southWestCorner: String,
         @Query("ne_corner") northEastCorner: String,
         @Query("page_size") pageSize: Int

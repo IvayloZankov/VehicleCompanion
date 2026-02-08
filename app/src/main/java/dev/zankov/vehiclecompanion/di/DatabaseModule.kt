@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.zankov.vehiclecompanion.data.local.DATABASE_NAME
 import dev.zankov.vehiclecompanion.data.local.VehicleDatabase
+import dev.zankov.vehiclecompanion.data.local.dao.PoiDao
 import javax.inject.Singleton
 
 @Module
@@ -24,4 +25,10 @@ object DatabaseModule {
         VehicleDatabase::class.java,
         name = DATABASE_NAME
     ).fallbackToDestructiveMigration(false).build()
+
+    @Provides
+    @Singleton
+    fun providePoiDao(vehicleDatabase: VehicleDatabase): PoiDao {
+        return vehicleDatabase.poiDao()
+    }
 }

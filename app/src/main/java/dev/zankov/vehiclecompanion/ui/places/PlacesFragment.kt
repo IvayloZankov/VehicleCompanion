@@ -1,7 +1,7 @@
 package dev.zankov.vehiclecompanion.ui.places
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -40,14 +40,16 @@ import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 @Composable
 fun PlacesFragment(
     modifier: Modifier = Modifier,
-    viewModel: PlacesViewModel = hiltViewModel()
+    viewModel: PlacesViewModel = hiltViewModel(),
+    onPoiClick: (id: Int) -> Unit
 ) {
 
     val statePois by viewModel.stateFlowPois.collectAsState(initial = emptyList())
 
     PlacesScreen(
         modifier = modifier,
-        statePois = statePois
+        statePois = statePois,
+        onPoiClick = onPoiClick
     )
 }
 
@@ -55,13 +57,15 @@ fun PlacesFragment(
 fun PlacesScreen(
     modifier: Modifier = Modifier,
     statePois: List<Poi>,
+    onPoiClick: (id: Int) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
         items(statePois) { poi ->
             PoiCard(
-                poi = poi
+                poi = poi,
+                onClick = { onPoiClick(poi.id) }
             )
         }
     }
@@ -69,12 +73,14 @@ fun PlacesScreen(
 
 @Composable
 fun PoiCard(
-    poi: Poi
+    poi: Poi,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primary,
         )
@@ -149,7 +155,8 @@ fun PlacesPreview() {
                     categoryName = "Category",
                     rating = 5.0
                 )
-            )
+            ),
+            onPoiClick = {}
         )
     }
 }
