@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.zankov.vehiclecompanion.model.Poi
+import dev.zankov.vehiclecompanion.ui.rating.StarRating
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 
 @Composable
@@ -74,10 +75,9 @@ fun PoiCard(
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(top = 8.dp)
             )
-            Text(
-                text = poi.rating.toString(),
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(top = 4.dp)
+            StarRating(
+                rating = poi.rating,
+                modifier = Modifier.padding(top = 8.dp)
             )
         }
     }
