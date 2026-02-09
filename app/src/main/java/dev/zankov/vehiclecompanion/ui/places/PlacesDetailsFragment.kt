@@ -31,6 +31,7 @@ import dev.zankov.vehiclecompanion.model.Poi
 import dev.zankov.vehiclecompanion.ui.rating.StarRating
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 import androidx.core.net.toUri
+import dev.zankov.vehiclecompanion.ui.maps.LocationMap
 
 @Composable
 fun PlacesDetailsFragment(
@@ -50,6 +51,7 @@ fun PlacesDetailsFragment(
 
 @Composable
 fun PlacesDetailsScreen(poi: Poi, onOpenInBrowserClick: (String) -> Unit) {
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -101,10 +103,17 @@ fun PlacesDetailsScreen(poi: Poi, onOpenInBrowserClick: (String) -> Unit) {
                     Button(
                         onClick = { onOpenInBrowserClick(poi.url) },
                         modifier = Modifier
-                            .padding(top = 16.dp)
+                            .padding(vertical = 16.dp)
                     ) {
                         Text(text = stringResource(id = R.string.open_in_browser))
                     }
+                }
+            }
+            if (poi.loc.isNotEmpty()) {
+                Box {
+                    LocationMap(
+                        listCords = poi.loc
+                    )
                 }
             }
         }

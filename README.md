@@ -10,6 +10,7 @@ An Android application for managing your vehicles and discovering nearby places 
 - **Places:**
   - Discover and view details about nearby points of interest.
   - Fetches data from a remote API using Retrofit.
+  - Shows a google map with the location of the place. (API Key required)
 
 ## Built With
 
@@ -23,8 +24,6 @@ An Android application for managing your vehicles and discovering nearby places 
 
 ## Future Development
 
-- Add unit and integration tests.
-- Integrate a map view for places.
 - Get current location for user.
 - Allow users to add photos to their vehicles.
 - Polish and enhance the overall UI/UX design.
