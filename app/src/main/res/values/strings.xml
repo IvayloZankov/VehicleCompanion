@@ -12,4 +12,7 @@
     <string name="image_loading_failed">Image loading failed</string>
     <string name="places_category">Category: %s</string>
     <string name="open_in_browser">Open in browser</string>
+    <string name="error">Error</string>
+    <string name="unknown_error">An unknown error occurred</string>
+    <string name="ok">OK</string>
 </resources>

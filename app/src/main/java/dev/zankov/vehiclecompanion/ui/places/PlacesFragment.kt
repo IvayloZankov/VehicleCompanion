@@ -35,6 +35,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.SubcomposeAsyncImage
 import dev.zankov.vehiclecompanion.R
 import dev.zankov.vehiclecompanion.model.Poi
+import dev.zankov.vehiclecompanion.ui.alert.ErrorAlert
 import dev.zankov.vehiclecompanion.ui.rating.StarRating
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 
@@ -44,8 +45,15 @@ fun PlacesFragment(
     viewModel: PlacesViewModel = hiltViewModel(),
     onPoiClick: (id: Int) -> Unit
 ) {
-
     val statePois by viewModel.stateFlowPois.collectAsState(initial = emptyList())
+    val stateError by viewModel.stateFlowError.collectAsState()
+
+    stateError?.let {
+        ErrorAlert(
+            errorEvent = it,
+            onDismiss = { viewModel.onErrorDismissed() }
+        )
+    }
 
     PlacesScreen(
         modifier = modifier,
