@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Vehicle Companion</string>
+    <string name="add_vehicle">Add Vehicle</string>
+    <string name="close">Close</string>
+    <string name="vehicle_name">Name</string>
+    <string name="vehicle_make">Make</string>
+    <string name="vehicle_model">Model</string>
+    <string name="vehicle_vin">VIN</string>
+    <string name="vehicle_fuel_type">Fuel Type</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="image_loading_failed">Image loading failed</string>
+    <string name="places_category">Category: %s</string>
+    <string name="open_in_browser">Open in browser</string>
 </resources>

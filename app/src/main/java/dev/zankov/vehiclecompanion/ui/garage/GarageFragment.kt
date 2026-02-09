@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,7 +66,7 @@ fun GarageScreen(
             FloatingActionButton(onClick = onAddVehicleClick) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_add_vehicle),
-                    contentDescription = "Add new vehicle"
+                    contentDescription = stringResource(id = R.string.add_vehicle)
                 )
             }
         }
@@ -95,11 +96,11 @@ fun GarageScreen(
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_add_vehicle),
-                            contentDescription = "Add new vehicle",
+                            contentDescription = stringResource(id = R.string.add_vehicle),
                             modifier = Modifier.size(72.dp)
                         )
                         Text(
-                            text = "Add new vehicle",
+                            text = stringResource(id = R.string.add_vehicle),
                             style = MaterialTheme.typography.headlineSmall,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.padding(top = 16.dp)

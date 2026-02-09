@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -143,7 +144,7 @@ fun UpdateVehicleScreen(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        "Add Vehicle",
+                        stringResource(id = R.string.add_vehicle),
                         Modifier.padding(horizontal = 16.dp)
                     )
                     Button(
@@ -154,14 +155,14 @@ fun UpdateVehicleScreen(
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_close_24),
-                            contentDescription = "Close"
+                            contentDescription = stringResource(id = R.string.close)
                         )
                     }
                 }
                 OutlinedTextField(
                     value = name,
                     onValueChange = onNameChange,
-                    label = { Text("Name") },
+                    label = { Text(stringResource(id = R.string.vehicle_name)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     isError = isNameError,
@@ -170,7 +171,7 @@ fun UpdateVehicleScreen(
                 OutlinedTextField(
                     value = make,
                     onValueChange = onMakeChange,
-                    label = { Text("Make") },
+                    label = { Text(stringResource(id = R.string.vehicle_make)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     isError = isMakeError,
@@ -179,7 +180,7 @@ fun UpdateVehicleScreen(
                 OutlinedTextField(
                     value = model,
                     onValueChange = onModelChange,
-                    label = { Text("Model") },
+                    label = { Text(stringResource(id = R.string.vehicle_model)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     isError = isModelError,
@@ -189,14 +190,14 @@ fun UpdateVehicleScreen(
                     value = vin,
                     onValueChange = onVinChange,
                     singleLine = true,
-                    label = { Text("VIN") },
+                    label = { Text(stringResource(id = R.string.vehicle_vin)) },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next)
                 )
                 OutlinedTextField(
                     value = fuelType,
                     onValueChange = onFuelTypeChange,
-                    label = { Text("Fuel Type") },
+                    label = { Text(stringResource(id = R.string.vehicle_fuel_type)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
@@ -212,7 +213,7 @@ fun UpdateVehicleScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                 ) {
-                    Text("Save")
+                    Text(stringResource(id = R.string.save))
                 }
                 if (vehicle.id != 0) {
                     Button(
@@ -224,7 +225,7 @@ fun UpdateVehicleScreen(
                             contentColor = MaterialTheme.colorScheme.onError
                         )
                     ) {
-                        Text("Delete")
+                        Text(stringResource(id = R.string.delete))
                     }
                 }
             }
