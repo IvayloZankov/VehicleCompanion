@@ -29,13 +29,17 @@ class FetchLocationsUseCase @Inject constructor(
         onSuccess: (List<Poi>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        val pointsOfInterest = locationsRepository.getPointsOfInterest(
-            southWestCorner,
-            northEastCorner,
-            pageSize
-        )
-        pointsOfInterest
-            .onSuccess { pois -> onSuccess(pois) }
-            .onFailure { exception -> onFailure(exception) }
+        runCatching {
+            val pointsOfInterest = locationsRepository.getPointsOfInterest(
+                southWestCorner,
+                northEastCorner,
+                pageSize
+            )
+            pointsOfInterest
+                .onSuccess { pois -> onSuccess(pois) }
+                .onFailure { exception -> onFailure(exception) }
+        }.onFailure { exception ->
+            onFailure(exception)
+        }
     }
 }
