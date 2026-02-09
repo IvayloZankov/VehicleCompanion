@@ -26,10 +26,12 @@ class GetPoiUseCase @Inject constructor(
         onSuccess: (Poi?) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        repository.getPointOfInterestById(id).collect {
-            it?.let {
-                onSuccess(it.toPoi())
+        runCatching {
+            repository.getPointOfInterestById(id).collect { poiEntity ->
+                onSuccess(poiEntity?.toPoi())
             }
+        }.onFailure { exception ->
+            onFailure(exception)
         }
     }
 }

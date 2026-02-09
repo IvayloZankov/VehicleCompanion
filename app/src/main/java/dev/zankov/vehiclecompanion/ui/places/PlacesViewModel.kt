@@ -39,8 +39,8 @@ class PlacesViewModel @Inject constructor(
                 onSuccess = { newList ->
                     _stateFlowPois.update { newList }
                 },
-                onFailure = {
-                    _stateFlowError.update { it }
+                onFailure = { throwable ->
+                    _stateFlowError.update { throwable }
                 }
             )
         }
