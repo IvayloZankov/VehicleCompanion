@@ -7,6 +7,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 
+/**
+ * Concrete implementation of [VehicleRepository] that interacts with the local [VehicleDatabase].
+ * This class is responsible for managing vehicle data in the application's local storage.
+ * It uses [Dispatchers.IO] to provide asynchronous data streams and operations.
+ *
+ * @property vehicleDatabase The Room database instance used to access vehicle data.
+ */
 class VehicleRepositoryImpl @Inject constructor(
     private val vehicleDatabase: VehicleDatabase
 ) : VehicleRepository {
