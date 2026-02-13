@@ -29,11 +29,7 @@ class LocationsRepositoryImpl @Inject constructor(
         northEastCorner: String,
         pageSize: Int
     ): Result<List<Poi>> {
-        val pointsOfInterest = locationsApi.getPointsOfInterest(
-            southWestCorner,
-            northEastCorner,
-            pageSize
-        )
+        val pointsOfInterest = locationsApi.getPointsOfInterest()
         if (pointsOfInterest.isSuccessful) {
             pointsOfInterest.body()?.let { locationsModel ->
                 val entities = locationsModel.pois.map { it.toPoiEntity() }

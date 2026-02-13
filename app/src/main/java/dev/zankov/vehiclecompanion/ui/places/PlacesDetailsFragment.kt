@@ -57,11 +57,11 @@ fun PlacesDetailsScreen(poi: Poi, onOpenInBrowserClick: (String) -> Unit) {
     ) {
         Column {
             SubcomposeAsyncImage(
-                model = poi.largeImageUrl,
+                model = poi.image,
                 contentDescription = poi.name,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .height(300.dp)
                     .background(MaterialTheme.colorScheme.surfaceVariant),
                 contentScale = ContentScale.Crop,
                 loading = {

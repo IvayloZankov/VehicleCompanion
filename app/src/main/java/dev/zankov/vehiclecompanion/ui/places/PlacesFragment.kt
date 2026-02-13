@@ -99,8 +99,8 @@ fun PoiCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             SubcomposeAsyncImage(
-                model = poi.v320x320Url,
-                contentDescription = poi.name, // Important for accessibility
+                model = poi.image,
+                contentDescription = poi.name,
                 modifier = Modifier
                     .size(80.dp)
                     .clip(RoundedCornerShape(8.dp))

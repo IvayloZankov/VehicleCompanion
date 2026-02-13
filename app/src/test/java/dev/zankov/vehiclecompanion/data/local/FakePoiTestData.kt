@@ -10,7 +10,7 @@ val fakePoiList = listOf(
         categoryName = "station",
         rating = 4.1,
         url = "https://example.com/1",
-        v320x320Url = "https://example.com/1/v320x320.jpg",
+        image = "https://example.com/1/v320x320.jpg",
         largeImageUrl = "https://example.com/1/large.jpg"
     ),
     Poi(
@@ -20,7 +20,7 @@ val fakePoiList = listOf(
         categoryName = "restaurant",
         rating = 4.2,
         url = "https://example.com/2",
-        v320x320Url = "https://example.com/2/v320x320.jpg",
+        image = "https://example.com/2/v320x320.jpg",
         largeImageUrl = "https://example.com/2/large.jpg"
     ),
     Poi(
@@ -30,7 +30,7 @@ val fakePoiList = listOf(
         categoryName = "park",
         rating = 4.3,
         url = "https://example.com/3",
-        v320x320Url = "https://example.com/3/v320x320.jpg",
+        image = "https://example.com/3/v320x320.jpg",
         largeImageUrl = "https://example.com/3/large.jpg"
     ),
     Poi(
@@ -40,7 +40,7 @@ val fakePoiList = listOf(
         categoryName = "station",
         rating = 4.4,
         url = "https://example.com/4",
-        v320x320Url = "https://example.com/4/v320x320.jpg",
+        image = "https://example.com/4/v320x320.jpg",
         largeImageUrl = "https://example.com/4/large.jpg"
     ),
     Poi(
@@ -50,7 +50,7 @@ val fakePoiList = listOf(
         categoryName = "museum",
         rating = 4.5,
         url = "https://example.com/5",
-        v320x320Url = "https://example.com/5/v320x320.jpg",
+        image = "https://example.com/5/v320x320.jpg",
         largeImageUrl = "https://example.com/5/large.jpg"
     ),
     Poi(
@@ -60,7 +60,7 @@ val fakePoiList = listOf(
         categoryName = "station",
         rating = 4.6,
         url = "https://example.com/6",
-        v320x320Url = "https://example.com/6/v320x320.jpg",
+        image = "https://example.com/6/v320x320.jpg",
         largeImageUrl = "https://example.com/6/large.jpg"
     ),
     Poi(
@@ -70,7 +70,7 @@ val fakePoiList = listOf(
         categoryName = "cafe",
         rating = 4.7,
         url = "https://example.com/7",
-        v320x320Url = "https://example.com/7/v320x320.jpg",
+        image = "https://example.com/7/v320x320.jpg",
         largeImageUrl = "https://example.com/7/large.jpg"
     )
 )

@@ -26,7 +26,7 @@ fun PoiEntity.toPoi(): Poi {
         categoryName = this.categoryName,
         rating = this.rating,
         url = this.url,
-        v320x320Url = this.v320x320Url,
+        image = this.v320x320Url,
         largeImageUrl = this.largeImageUrl
     )
 }
@@ -39,7 +39,7 @@ fun Poi.toPoiEntity(): PoiEntity {
         categoryName = this.categoryName,
         rating = this.rating,
         url = this.url,
-        v320x320Url = this.v320x320Url,
+        v320x320Url = this.image,
         largeImageUrl = this.largeImageUrl
     )
 }

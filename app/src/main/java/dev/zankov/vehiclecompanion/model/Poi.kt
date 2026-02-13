@@ -10,14 +10,14 @@ data class Poi(
     val loc: List<Double> = listOf(),
     @SerializedName("name")
     val name: String = "",
-    @SerializedName("primary_category_display_name")
+    @SerializedName("category")
     val categoryName: String = "",
     @SerializedName("rating")
     val rating: Double = 0.0,
     @SerializedName("url")
     val url: String = "",
-    @SerializedName("v_320x320_url")
-    val v320x320Url: String = "",
+    @SerializedName("image")
+    val image: String = "",
     @SerializedName("large_image_url")
     val largeImageUrl: String = ""
 )
