@@ -33,7 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.zankov.vehiclecompanion.R
-import dev.zankov.vehiclecompanion.model.Vehicle
+import dev.zankov.vehiclecompanion.domain.model.Vehicle
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 
 @Composable
@@ -63,11 +63,13 @@ fun GarageScreen(
     Scaffold(
         modifier = modifier,
         floatingActionButton = {
-            FloatingActionButton(onClick = onAddVehicleClick) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_add_vehicle),
-                    contentDescription = stringResource(id = R.string.add_vehicle)
-                )
+            if (stateVehicles.isNotEmpty()) {
+                FloatingActionButton(onClick = onAddVehicleClick) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_add_vehicle),
+                        contentDescription = stringResource(id = R.string.add_vehicle)
+                    )
+                }
             }
         }
     ) { paddingValues ->
@@ -107,8 +109,6 @@ fun GarageScreen(
                         )
                     }
                 }
-
-
             } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize()
@@ -116,7 +116,9 @@ fun GarageScreen(
                     items(stateVehicles) { vehicle ->
                         VehicleCard(
                             vehicle = vehicle,
-                            onClick = { onEditVehicleClick(vehicle.id) }
+                            onClick = {
+                                onEditVehicleClick(vehicle.id)
+                            }
                         )
                     }
                 }

@@ -2,13 +2,13 @@ package dev.zankov.vehiclecompanion.ui.garage
 
 import androidx.lifecycle.SavedStateHandle
 import dev.zankov.vehiclecompanion.MainDispatcherRule
-import dev.zankov.vehiclecompanion.data.local.FakeVehicleRepository
-import dev.zankov.vehiclecompanion.data.local.fakeVehicles
+import dev.zankov.vehiclecompanion.data.repository.FakeVehicleRepository
+import dev.zankov.vehiclecompanion.data.repository.fakeVehicles
+import dev.zankov.vehiclecompanion.domain.model.Vehicle
 import dev.zankov.vehiclecompanion.domain.usecase.GetVehicleUseCase
 import dev.zankov.vehiclecompanion.domain.usecase.RemoveVehicleUseCase
 import dev.zankov.vehiclecompanion.domain.usecase.SaveVehicleUseCase
-import dev.zankov.vehiclecompanion.model.Vehicle
-import dev.zankov.vehiclecompanion.navigation.AppRoutes
+import dev.zankov.vehiclecompanion.ui.navigation.AppRoutes
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -65,7 +65,14 @@ class UpdateVehicleViewModelTest {
     @Test
     fun saveVehicle_updatesRepository() = runTest {
         viewModel = createViewModel(testVehicle.id)
-        val newVehicle = Vehicle(id = 4, name = "New Car", make = "Tesla", model = "Model 3", vin = "VIN123", fuelType = "Electric")
+        val newVehicle = Vehicle(
+            id = 4,
+            name = "New Car",
+            make = "Tesla",
+            model = "Model 3",
+            vin = "VIN123",
+            fuelType = "Electric"
+        )
         
         viewModel.saveVehicle(newVehicle)
 

@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import dev.zankov.vehiclecompanion.navigation.AppDestinations
-import dev.zankov.vehiclecompanion.navigation.AppNavigation
+import dev.zankov.vehiclecompanion.ui.navigation.AppDestinations
+import dev.zankov.vehiclecompanion.ui.navigation.AppNavigation
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 
 @AndroidEntryPoint

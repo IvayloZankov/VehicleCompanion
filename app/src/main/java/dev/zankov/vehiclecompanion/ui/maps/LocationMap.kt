@@ -35,11 +35,10 @@ fun LocationMap(
             .height(250.dp), // Set a fixed height for the map
         cameraPositionState = cameraPositionState
     ) {
-    LocationMarker(
-        state = markerState,
-    )
-}
-
+        LocationMarker(
+            state = markerState,
+        )
+    }
 }
 
 @Composable

@@ -1,8 +1,8 @@
 package dev.zankov.vehiclecompanion.domain.usecase
 
-import dev.zankov.vehiclecompanion.data.local.LocationsRepository
-import dev.zankov.vehiclecompanion.model.Poi
-import dev.zankov.vehiclecompanion.model.toPoi
+import dev.zankov.vehiclecompanion.domain.LocationsRepository
+import dev.zankov.vehiclecompanion.data.remote.dto.PoiDto
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import javax.inject.Inject
 
 /**
@@ -28,7 +28,7 @@ class GetPoiUseCase @Inject constructor(
     ) {
         runCatching {
             repository.getPointOfInterestById(id).collect { poiEntity ->
-                onSuccess(poiEntity?.toPoi())
+                onSuccess(poiEntity)
             }
         }.onFailure { exception ->
             onFailure(exception)

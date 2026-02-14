@@ -1,8 +1,8 @@
 package dev.zankov.vehiclecompanion.domain.usecase
 
-import dev.zankov.vehiclecompanion.data.local.FakeLocationRepository
-import dev.zankov.vehiclecompanion.data.local.fakePoiList
-import dev.zankov.vehiclecompanion.model.Poi
+import dev.zankov.vehiclecompanion.data.repository.FakeLocationRepository
+import dev.zankov.vehiclecompanion.data.repository.fakePoiList
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -44,7 +44,15 @@ class GetPoiUseCaseTest {
     @Test
     fun `invoke WHEN poi is NOT found THEN onSuccess is called with null`() = runTest {
         val invalidId = 999
-        var capturedPoi: Poi? = Poi(id = -1, name = "Dummy POI")
+        var capturedPoi: Poi? = Poi(
+            id = -1,
+            name = "Dummy POI",
+            category = "Dummy Category",
+            location = emptyList(),
+            rating = 0.0,
+            url = "",
+            image = ""
+        )
         var capturedException: Throwable? = null
 
         getPoiUseCase(

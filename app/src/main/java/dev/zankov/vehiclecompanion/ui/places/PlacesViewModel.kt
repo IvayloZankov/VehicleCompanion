@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.zankov.vehiclecompanion.domain.usecase.FetchLocationsUseCase
-import dev.zankov.vehiclecompanion.model.Poi
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

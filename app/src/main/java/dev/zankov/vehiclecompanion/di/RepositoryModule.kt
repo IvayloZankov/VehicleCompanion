@@ -4,15 +4,15 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import dev.zankov.vehiclecompanion.data.local.LocationsRepository
-import dev.zankov.vehiclecompanion.data.local.LocationsRepositoryImpl
-import dev.zankov.vehiclecompanion.data.local.VehicleRepository
-import dev.zankov.vehiclecompanion.data.local.VehicleRepositoryImpl
+import dev.zankov.vehiclecompanion.domain.LocationsRepository
+import dev.zankov.vehiclecompanion.data.repository.LocationsRepositoryImpl
+import dev.zankov.vehiclecompanion.domain.VehicleRepository
+import dev.zankov.vehiclecompanion.data.repository.VehicleRepositoryImpl
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class DataModule {
+abstract class RepositoryModule {
 
     @Binds
     @Singleton

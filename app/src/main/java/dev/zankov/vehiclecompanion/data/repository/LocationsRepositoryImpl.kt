@@ -1,13 +1,16 @@
-package dev.zankov.vehiclecompanion.data.local
+package dev.zankov.vehiclecompanion.data.repository
 
+import dev.zankov.vehiclecompanion.domain.LocationsRepository
 import dev.zankov.vehiclecompanion.data.local.dao.PoiDao
-import dev.zankov.vehiclecompanion.data.network.LocationsApi
-import dev.zankov.vehiclecompanion.model.Poi
-import dev.zankov.vehiclecompanion.model.PoiEntity
-import dev.zankov.vehiclecompanion.model.toPoiEntity
+import dev.zankov.vehiclecompanion.data.local.entity.toDomain
+import dev.zankov.vehiclecompanion.data.remote.LocationsApi
+import dev.zankov.vehiclecompanion.data.remote.dto.toDomain
+import dev.zankov.vehiclecompanion.data.remote.dto.toEntity
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 /**
@@ -32,12 +35,12 @@ class LocationsRepositoryImpl @Inject constructor(
         val pointsOfInterest = locationsApi.getPointsOfInterest()
         if (pointsOfInterest.isSuccessful) {
             pointsOfInterest.body()?.let { locationsModel ->
-                val entities = locationsModel.pois.map { it.toPoiEntity() }
+                val entities = locationsModel.pois.map { it.toEntity() }
 
                 // Refresh the database
                 poiDao.clearAll()
                 poiDao.insertAll(entities)
-                return Result.success(locationsModel.pois)
+                return Result.success(locationsModel.pois.map { it.toDomain() })
             }
         } else {
             return Result.failure(Exception("Failed to fetch points of interest"))
@@ -45,7 +48,7 @@ class LocationsRepositoryImpl @Inject constructor(
         return Result.failure(Exception("Failed to fetch points of interest"))
     }
 
-    override suspend fun getPointOfInterestById(id: Int): Flow<PoiEntity?> {
-        return poiDao.getPoiById(id).flowOn(Dispatchers.IO)
+    override suspend fun getPointOfInterestById(id: Int): Flow<Poi?> {
+        return poiDao.getPoiById(id).map { entity -> entity?.toDomain() }.flowOn(Dispatchers.IO)
     }
 }

@@ -1,7 +1,7 @@
 package dev.zankov.vehiclecompanion.domain.usecase
 
-import dev.zankov.vehiclecompanion.data.local.VehicleRepository
-import dev.zankov.vehiclecompanion.model.Vehicle
+import dev.zankov.vehiclecompanion.domain.VehicleRepository
+import dev.zankov.vehiclecompanion.domain.model.Vehicle
 import javax.inject.Inject
 
 /**

@@ -1,8 +1,8 @@
-package dev.zankov.vehiclecompanion.navigation
+package dev.zankov.vehiclecompanion.ui.navigation
 
 import dev.zankov.vehiclecompanion.R
-import dev.zankov.vehiclecompanion.navigation.AppRoutes.ROUTE_GARAGE
-import dev.zankov.vehiclecompanion.navigation.AppRoutes.ROUTE_PLACES
+import dev.zankov.vehiclecompanion.ui.navigation.AppRoutes.ROUTE_GARAGE
+import dev.zankov.vehiclecompanion.ui.navigation.AppRoutes.ROUTE_PLACES
 
 object AppRoutes {
     const val ROUTE_GARAGE = "garage_route"

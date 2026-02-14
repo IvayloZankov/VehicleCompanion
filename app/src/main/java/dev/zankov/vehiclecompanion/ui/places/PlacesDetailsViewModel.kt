@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.zankov.vehiclecompanion.domain.usecase.GetPoiUseCase
-import dev.zankov.vehiclecompanion.model.Poi
-import dev.zankov.vehiclecompanion.navigation.AppRoutes
+import dev.zankov.vehiclecompanion.data.remote.dto.PoiDto
+import dev.zankov.vehiclecompanion.domain.model.Poi
+import dev.zankov.vehiclecompanion.ui.navigation.AppRoutes
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -19,7 +20,15 @@ class PlacesDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _stateFlowPoi = MutableStateFlow(Poi())
+    private val _stateFlowPoi = MutableStateFlow(Poi(
+        id = -1,
+        name = "",
+        category = "",
+        location = emptyList(),
+        rating = 0.0,
+        url = "",
+        image = ""
+    ))
     val stateFlowPoi = _stateFlowPoi.asStateFlow()
 
     private val poiId: Int = savedStateHandle.get<Int>(AppRoutes.ARG_POI_ID) ?: -1

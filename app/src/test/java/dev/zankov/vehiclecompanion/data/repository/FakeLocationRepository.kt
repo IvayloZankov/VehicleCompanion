@@ -1,8 +1,7 @@
-package dev.zankov.vehiclecompanion.data.local
+package dev.zankov.vehiclecompanion.data.repository
 
-import dev.zankov.vehiclecompanion.model.Poi
-import dev.zankov.vehiclecompanion.model.PoiEntity
-import dev.zankov.vehiclecompanion.model.toPoiEntity
+import dev.zankov.vehiclecompanion.domain.LocationsRepository
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -21,9 +20,9 @@ class FakeLocationRepository: LocationsRepository {
         return Result.success(poisToReturn)
     }
 
-    override suspend fun getPointOfInterestById(id: Int): Flow<PoiEntity?> {
+    override suspend fun getPointOfInterestById(id: Int): Flow<Poi?> {
         exceptionToThrow?.let { throw it }
-        return flowOf(fakePoiList.getOrNull(id)?.toPoiEntity())
+        return flowOf(fakePoiList.getOrNull(id))
     }
 
     fun setPois(pois: List<Poi>) {

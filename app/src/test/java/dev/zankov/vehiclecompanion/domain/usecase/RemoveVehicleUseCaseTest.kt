@@ -1,7 +1,7 @@
 package dev.zankov.vehiclecompanion.domain.usecase
 
-import dev.zankov.vehiclecompanion.data.local.FakeVehicleRepository
-import dev.zankov.vehiclecompanion.data.local.fakeVehicles
+import dev.zankov.vehiclecompanion.data.repository.FakeVehicleRepository
+import dev.zankov.vehiclecompanion.data.repository.fakeVehicles
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

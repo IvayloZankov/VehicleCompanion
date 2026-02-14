@@ -1,6 +1,7 @@
-package dev.zankov.vehiclecompanion.data.local
+package dev.zankov.vehiclecompanion.data.repository
 
-import dev.zankov.vehiclecompanion.model.Vehicle
+import dev.zankov.vehiclecompanion.domain.VehicleRepository
+import dev.zankov.vehiclecompanion.domain.model.Vehicle
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

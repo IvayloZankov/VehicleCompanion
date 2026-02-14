@@ -1,6 +1,6 @@
-package dev.zankov.vehiclecompanion.data.network
+package dev.zankov.vehiclecompanion.data.remote
 
-import dev.zankov.vehiclecompanion.model.LocationsModel
+import dev.zankov.vehiclecompanion.data.remote.dto.LocationsModel
 import retrofit2.Response
 import retrofit2.http.GET
 

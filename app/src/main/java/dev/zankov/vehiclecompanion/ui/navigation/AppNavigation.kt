@@ -1,4 +1,4 @@
-package dev.zankov.vehiclecompanion.navigation
+package dev.zankov.vehiclecompanion.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

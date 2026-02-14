@@ -1,6 +1,6 @@
-package dev.zankov.vehiclecompanion.data.local
+package dev.zankov.vehiclecompanion.data.repository
 
-import dev.zankov.vehiclecompanion.model.Vehicle
+import dev.zankov.vehiclecompanion.domain.model.Vehicle
 
 val fakeVehicles = listOf(
     Vehicle(

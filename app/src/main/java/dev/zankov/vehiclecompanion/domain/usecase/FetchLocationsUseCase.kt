@@ -1,7 +1,7 @@
 package dev.zankov.vehiclecompanion.domain.usecase
 
-import dev.zankov.vehiclecompanion.data.local.LocationsRepository
-import dev.zankov.vehiclecompanion.model.Poi
+import dev.zankov.vehiclecompanion.domain.LocationsRepository
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import javax.inject.Inject
 
 /**

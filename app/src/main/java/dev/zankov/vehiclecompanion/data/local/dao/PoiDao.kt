@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import dev.zankov.vehiclecompanion.model.PoiEntity
+import dev.zankov.vehiclecompanion.data.local.entity.PoiEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

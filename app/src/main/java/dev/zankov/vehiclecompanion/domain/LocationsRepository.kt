@@ -1,7 +1,6 @@
-package dev.zankov.vehiclecompanion.data.local
+package dev.zankov.vehiclecompanion.domain
 
-import dev.zankov.vehiclecompanion.model.Poi
-import dev.zankov.vehiclecompanion.model.PoiEntity
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import kotlinx.coroutines.flow.Flow
 
 interface LocationsRepository {
@@ -10,5 +9,5 @@ interface LocationsRepository {
         northEastCorner: String,
         pageSize: Int
     ): Result<List<Poi>>
-    suspend fun getPointOfInterestById(id: Int): Flow<PoiEntity?>
+    suspend fun getPointOfInterestById(id: Int): Flow<Poi?>
 }

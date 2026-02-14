@@ -1,8 +1,8 @@
 package dev.zankov.vehiclecompanion.domain.usecase
 
-import dev.zankov.vehiclecompanion.data.local.FakeLocationRepository
-import dev.zankov.vehiclecompanion.data.local.fakePoiList
-import dev.zankov.vehiclecompanion.model.Poi
+import dev.zankov.vehiclecompanion.data.repository.FakeLocationRepository
+import dev.zankov.vehiclecompanion.data.repository.fakePoiList
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

@@ -27,10 +27,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.SubcomposeAsyncImage
 import dev.zankov.vehiclecompanion.R
-import dev.zankov.vehiclecompanion.model.Poi
+import dev.zankov.vehiclecompanion.data.remote.dto.PoiDto
 import dev.zankov.vehiclecompanion.ui.rating.StarRating
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 import androidx.core.net.toUri
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import dev.zankov.vehiclecompanion.ui.maps.LocationMap
 
 @Composable
@@ -92,7 +93,7 @@ fun PlacesDetailsScreen(poi: Poi, onOpenInBrowserClick: (String) -> Unit) {
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
-                Text(text = stringResource(id = R.string.places_category, poi.categoryName))
+                Text(text = stringResource(id = R.string.places_category, poi.category))
                 StarRating(
                     rating = poi.rating,
                     starSize = 32.dp,
@@ -109,10 +110,10 @@ fun PlacesDetailsScreen(poi: Poi, onOpenInBrowserClick: (String) -> Unit) {
                     }
                 }
             }
-            if (poi.loc.isNotEmpty()) {
+            if (poi.location.isNotEmpty()) {
                 Box {
                     LocationMap(
-                        listCords = poi.loc
+                        listCords = poi.location
                     )
                 }
             }
@@ -126,10 +127,12 @@ fun PlacesDetailsScreenPreview() {
     val samplePoi = Poi(
         id = 1,
         name = "Sample Place",
-        categoryName = "Sample Category",
+        category = "Sample Category",
+        location = listOf(1.0, 2.0),
         rating = 4.5,
-        largeImageUrl = "https://via.placeholder.com/600/92c952",
-        url = "https://www.google.com"
+        image = "https://via.placeholder.com/600/92c952",
+        url = "https://www.google.com",
+
     )
     VehicleCompanionTheme {
         PlacesDetailsScreen(poi = samplePoi) {}

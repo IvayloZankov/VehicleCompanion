@@ -34,7 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.SubcomposeAsyncImage
 import dev.zankov.vehiclecompanion.R
-import dev.zankov.vehiclecompanion.model.Poi
+import dev.zankov.vehiclecompanion.data.remote.dto.PoiDto
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import dev.zankov.vehiclecompanion.ui.alert.ErrorAlert
 import dev.zankov.vehiclecompanion.ui.rating.StarRating
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
@@ -130,7 +131,7 @@ fun PoiCard(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = poi.categoryName,
+                    text = poi.category,
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(top = 8.dp)
                 )
@@ -150,19 +151,31 @@ fun PlacesPreview() {
         PlacesScreen(
             statePois = listOf(
                 Poi(
+                    id = 1,
                     name = "Example POI with a very long name that will not fit on the screen",
-                    categoryName = "Category",
-                    rating = 4.5
+                    category = "Category",
+                    location = listOf(1.0, 2.0),
+                    rating = 4.5,
+                    url = "https://example.com",
+                    image = "https://example.com/image.jpg"
                 ),
                 Poi(
+                    id = 2,
                     name = "Example POI",
-                    categoryName = "Category",
-                    rating = 3.0
+                    category = "Category",
+                    location = listOf(1.0, 2.0),
+                    rating = 3.0,
+                    url = "https://example.com",
+                    image = "https://example.com/image.jpg"
                 ),
                 Poi(
+                    id = 3,
                     name = "Example POI",
-                    categoryName = "Category",
-                    rating = 5.0
+                    category = "Category",
+                    location = listOf(1.0, 2.0),
+                    rating = 5.0,
+                    url = "https://example.com",
+                    image = "https://example.com/image.jpg"
                 )
             ),
             onPoiClick = {}

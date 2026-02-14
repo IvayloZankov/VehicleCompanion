@@ -34,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.zankov.vehiclecompanion.R
-import dev.zankov.vehiclecompanion.model.Vehicle
+import dev.zankov.vehiclecompanion.domain.model.Vehicle
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 
 @Composable
@@ -238,7 +238,14 @@ fun UpdateVehicleScreen(
 fun UpdateVehicleScreenPreview() {
     VehicleCompanionTheme {
         UpdateVehicleScreen(
-            vehicle = Vehicle(id = 1),
+            vehicle = Vehicle(
+                id = 1,
+                name = "My Awesome Car",
+                make = "Toyota",
+                model = "GR Yaris",
+                vin = "1234567890",
+                fuelType = "Gasoline"
+            ),
             name = "My Awesome Car",
             onNameChange = {},
             isNameError = false,

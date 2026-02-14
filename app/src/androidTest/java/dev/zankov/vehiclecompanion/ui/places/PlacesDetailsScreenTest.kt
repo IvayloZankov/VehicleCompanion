@@ -4,7 +4,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import dev.zankov.vehiclecompanion.model.Poi
+import dev.zankov.vehiclecompanion.domain.model.Poi
 import dev.zankov.vehiclecompanion.ui.theme.VehicleCompanionTheme
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -20,9 +20,10 @@ class PlacesDetailsScreenTest {
         val samplePoi = Poi(
             id = 1,
             name = "Test Place",
-            categoryName = "Test Category",
+            category = "Test Category",
+            location = emptyList(),
             rating = 4.5,
-            largeImageUrl = "https://example.com/image.jpg",
+            image = "https://example.com/image.jpg",
             url = "https://example.com"
         )
 
@@ -43,10 +44,11 @@ class PlacesDetailsScreenTest {
         val samplePoi = Poi(
             id = 1,
             name = "Test Place",
-            categoryName = "Test Category",
+            category = "Test Category",
+            location = emptyList(),
             rating = 4.5,
-            largeImageUrl = "https://example.com/image.jpg",
-            url = "https://example.com/url"
+            image = "https://example.com/image.jpg",
+            url = "https://example.com/url",
         )
 
         composeTestRule.setContent {
@@ -67,9 +69,10 @@ class PlacesDetailsScreenTest {
         val samplePoi = Poi(
             id = 1,
             name = "Test Place",
-            categoryName = "Test Category",
+            category = "Test Category",
+            location = emptyList(),
             rating = 4.5,
-            largeImageUrl = "https://example.com/image.jpg",
+            image = "https://example.com/image.jpg",
             url = ""
         )
 
